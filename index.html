@@ -1,154 +1,276 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Public+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
+<html lang="en">
+<head>
+  <link rel="shortcut icon" href="assets/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="assets/site.webmanifest">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ምእራፍ</title>
+  <meta name="description" content="ምእራፍ is a home for short stories — Ethiopian tales and beyond. Read what others have written, or share a story of your own.">
+  <meta property="og:title" content="ምእራፍ — Short stories, shared simply">
+  <meta property="og:description" content="Read short stories from Ethiopia and beyond, or share one of your own.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/book%20cover.webp">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <title>ምእራፍ</title>
-    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden">
-      <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap px-10 py-3">
-          <div class="flex items-center gap-4 text-[#141414]">
-            <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path></svg>
-            </div>
-            <h2 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em]">ምእራፍ</h2>
-          </div>
-          <div class="flex flex-1 justify-end gap-8 items-center">
-            <button
-              class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f2f2f2] text-[#141414] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5"
-              id="theme-toggle"
-            >
-              <div class="text-[#141414]" data-icon="Sun" data-size="20px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                  <path
-                    d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"
-                  ></path>
-                </svg>
-              </div>
-            </button>
-            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f2f2f2] text-[#141414] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" id="profile-icon">
-              <div>
-                <img src="assets/profile-candidate.png" alt="Profile Icon" class="w-5 h-5 rounded-full object-cover">
-              </div>
-            </button>
-          </div>
-        </header>
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">My Stories</h2>
-            <div id="my-books" class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-6 p-4">
-              <div class="relative flex flex-col gap-3 pb-3 group">
-                <div
-                  class="w-full h-64 bg-center bg-no-repeat rounded-lg relative book-image-container"
-                  style='background-image: url("assets/book\ cover.webp"); background-size: contain;'
-                >
-                </div>
-                <div class="flex flex-col flex-grow h-20">
-                  <p class="book-title text-[#141414] text-base font-medium leading-normal">STAY INSIDE</p>
-                  <p class="text-[#757575] text-sm font-normal leading-normal">by KALEB DAWIT</p>
-                </div>
-                <a href="assets/Stay Inside.pdf" download="Stay Inside.pdf" target="_blank" class="mt-auto block w-full py-1.5 px-3 text-sm font-medium text-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors duration-200 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
-                  Download PDF
-                </a>
-              </div>
-              <div class="relative flex flex-col gap-3 pb-3 group">
-                <div
-                  class="w-full h-64 bg-center bg-no-repeat rounded-lg relative book-image-container"
-                  style='background-image: url("assets/Shadowed\ Reflection\ in\ Dim\ Light\ \(1\).webp"); background-size: contain;'
-                >
-                </div>
-                <div class="flex flex-col flex-grow h-20">
-                  <p class="book-title text-[#141414] text-base font-medium leading-normal">SHADOW MARCH</p>
-                  <p class="text-[#757575] text-sm font-normal leading-normal">by KALEB DAWIT </p>
-                </div>
-                <a href="assets/SHADOW MARCH.pdf" download="SHDOW MARCH.pdf" target="_blank" class="mt-auto block w-full py-1.5 px-3 text-sm font-medium text-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors duration-200 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
-                  Download PDF
-                </a>
-              </div>
-              <div class="relative flex flex-col gap-3 pb-3 group">
-                <div
-                  class="w-full h-64 bg-center bg-no-repeat rounded-lg relative book-image-container"
-                  style='background-image: url("assets/All\ that\ time.webp"); background-size: contain;'
-                >
-                </div>
-                <div class="flex flex-col flex-grow h-20">
-                  <p class="book-title text-[#141414] text-base font-medium leading-normal">ALL THAT TIME</p>
-                  <p class="text-[#757575] text-sm font-normal leading-normal">by KALEB DAWIT</p>
-                </div>
-                <a href="assets/All that time.pdf" download="ALL that time.pdf" target="_blank" class="mt-auto block w-full py-1.5 px-3 text-sm font-medium text-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors duration-200 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
-                  Download PDF
-                </a>
-              </div>
-              <div class="relative flex flex-col gap-3 pb-3 group">
-                <div
-                  class="w-full h-64 bg-center bg-no-repeat rounded-lg relative book-image-container"
-                  style='background-image: url("assets/Last\ case\ first\ lie\ by\ kaleb\ dawit.webp"); background-size: contain;'
-                >
-                </div>
-                <div class="flex flex-col flex-grow h-20">
-                  <p class="book-title text-[#141414] text-base font-medium leading-normal">LAST CASE, FIRST LIE</p>
-                  <p class="text-[#757575] text-sm font-normal leading-normal">by KALEB DAWIT</p>
-                </div>
-                <a href="assets/last case first lie by kaleb dawit.pdf" download="last case first lie by kaleb dawit.pdf" target="_blank" class="mt-auto block w-full py-1.5 px-3 text-sm font-medium text-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors duration-200 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
-                  Download PDF
-                </a>
-              </div>
-              <p class="text-gray-600 col-span-full text-center py-10">More stories coming soon!</p>
-            </div>
-          </div>
-        </div>
-        <footer class="flex justify-center">
-          <div class="flex max-w-[960px] flex-1 flex-col">
-            <p class="text-[#757575] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center">© 2025 Developed by Kaleb Dawit</p>
-          </div>
-        </footer>
+  <div class="top-band">
+  <nav class="navbar">
+    <div class="nav-pill">
+      <button class="nav-icon-btn" id="home-btn" aria-label="Home"><i class="fa-solid fa-house"></i></button>
+      <div id="search-wrapper" class="search-wrapper">
+        <input type="text" id="search-input" class="search-inline-input" placeholder="Search by title..." autocomplete="off">
+        <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
+      <button class="nav-icon-btn" id="upload-btn" aria-label="Upload a book"><i class="fa-solid fa-plus"></i></button>
+      <div class="account-wrapper">
+        <button class="nav-icon-btn" id="account-btn" aria-label="Account" title=""><i class="fa-solid fa-user-plus"></i></button>
+        <div id="account-menu" class="account-menu hidden">
+          <p id="account-menu-name" class="account-menu-name"></p>
+          <button id="logout-btn" class="account-menu-item">Log Out</button>
+        </div>
+      </div>
+      <button class="nav-icon-btn hidden" id="admin-btn" aria-label="Pending approvals"><i class="fa-solid fa-shield-halved"></i></button>
+      <button class="nav-icon-btn" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
     </div>
+  </nav>
 
-    <div id="profile-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-      <div class="bg-white rounded-lg p-6 shadow-lg w-90 max-w-md relative">
-        <button id="close-profile-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
-        <h3 class="text-center text-2xl font-bold mb-4 text-[#141414]">KALEB DAWIT</h3>
-        <h4 class="text-lg font-semibold mb-3 text-[#141414]">My Uploaded Books</h4>
-        <div class="space-y-4">
-          <div>
-            <p class="text-base font-medium text-[#141414]">STAY INSIDE</p>
-            <p class="text-sm text-[#757575]">He woke up, lost and trapped, seeking answers.</p>
-          </div>
-          <div>
-            <p class="text-base font-medium text-[#141414]">SHADOW MARCH</p>
-            <p class="text-sm text-[#757575]">A soldier haunted by war's inescapable shadows.</p>
-          </div>
-          <div>
-            <p class="text-base font-medium text-[#141414]">ALL THAT TIME</p>
-            <p class="text-sm text-[#757575]">Past secrets, present confusion.</p>
-          </div>
-          <div>
-            <p class="text-base font-medium text-[#141414]">LAST CASE, FIRST LIE</p>
-            <p class="text-sm text-[#757575]">The detective's last case, marred by deception.</p>
+  <section class="hero">
+    <h1 class="hero-title">ምእራፍ</h1>
+    <p class="hero-subtitle">ምእራፍ (Merafe) is a home for short stories — Ethiopian tales and beyond. Read what others have written, or share a story of your own. Simple to browse, simple to upload, made for anyone who has a story worth telling.</p>
+  </section>
+  </div>
+
+  <main class="content">
+    <h2 class="section-title">Short Books</h2>
+    <div class="book-grid" id="book-grid">
+
+      <!-- Real uploaded books get inserted here by JavaScript -->
+
+      <div class="book-card">
+        <div class="book-cover" data-cover="assets/book cover.webp" data-pdf="assets/Stay Inside.pdf" data-genre="Drama" data-filesize="1258291" style="background-image: url('assets/book cover.webp');">
+          <div class="book-overlay">
+            <p class="overlay-title">Stay Inside</p>
+            <p class="overlay-desc">He woke up, lost and trapped, seeking answers.</p>
+            <p class="overlay-author">by Kaleb Dawit</p>
+            <a class="overlay-download" href="assets/Stay Inside.pdf" download="Stay Inside.pdf">Download</a>
+            <button class="login-to-download-btn overlay-login-btn">Log in to download</button>
           </div>
         </div>
       </div>
-    </div>
 
-    <script type="module" src="script.js"></script>
-  </body>
-</html> 
+      <div class="book-card">
+        <div class="book-cover" data-cover="assets/Shadowed Reflection in Dim Light (1).webp" data-pdf="assets/SHADOW MARCH.pdf" data-genre="Thriller" data-filesize="1887436" style="background-image: url('assets/Shadowed Reflection in Dim Light (1).webp');">
+          <div class="book-overlay">
+            <p class="overlay-title">Shadow March</p>
+            <p class="overlay-desc">A soldier haunted by war's inescapable shadows.</p>
+            <p class="overlay-author">by Kaleb Dawit</p>
+            <a class="overlay-download" href="assets/SHADOW MARCH.pdf" download="Shadow March.pdf">Download</a>
+            <button class="login-to-download-btn overlay-login-btn">Log in to download</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover" data-cover="assets/All that time.webp" data-pdf="assets/All that time.pdf" data-genre="Mystery" data-filesize="1572864" style="background-image: url('assets/All that time.webp');">
+          <div class="book-overlay">
+            <p class="overlay-title">All That Time</p>
+            <p class="overlay-desc">Past secrets, present confusion.</p>
+            <p class="overlay-author">by Kaleb Dawit</p>
+            <a class="overlay-download" href="assets/All that time.pdf" download="All That Time.pdf">Download</a>
+            <button class="login-to-download-btn overlay-login-btn">Log in to download</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card">
+        <div class="book-cover" data-cover="assets/Last case first lie by kaleb dawit.webp" data-pdf="assets/last case first lie by kaleb dawit.pdf" data-genre="Mystery" data-filesize="2097152" style="background-image: url('assets/Last case first lie by kaleb dawit.webp');">
+          <div class="book-overlay">
+            <p class="overlay-title">Last Case, First Lie</p>
+            <p class="overlay-desc">The detective's last case, marred by deception.</p>
+            <p class="overlay-author">by Kaleb Dawit</p>
+            <a class="overlay-download" href="assets/last case first lie by kaleb dawit.pdf" download="Last Case, First Lie.pdf">Download</a>
+            <button class="login-to-download-btn overlay-login-btn">Log in to download</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <a href="mailto:eleroidbussines@gmail.com">Contact</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+      <div class="footer-socials">
+        <a href="https://t.me/kaleb_dawit" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
+        <a href="https://x.com/Kaleb2343" target="_blank" rel="noopener" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://github.com/kaleb2343" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      </div>
+      <p class="footer-copyright">© 2025 ምእራፍ — Developed by Kaleb Dawit</p>
+    </div>
+  </footer>
+
+  <!-- Sign Up / Login Modal -->
+  <div id="auth-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <button id="close-auth-modal" class="modal-close">&times;</button>
+
+      <h2 id="auth-title">Sign Up</h2>
+
+      <form id="auth-form">
+        <label for="auth-name" id="name-label">Your Name</label>
+        <input type="text" id="auth-name" placeholder="e.g. Kaleb Dawit">
+
+        <label for="auth-email">Email</label>
+        <input type="email" id="auth-email" required placeholder="you@example.com">
+
+        <label for="auth-password">Password</label>
+        <input type="password" id="auth-password" required placeholder="At least 6 characters" autocomplete="new-password">
+
+        <label for="auth-password-confirm" id="confirm-label">Confirm Password</label>
+        <input type="password" id="auth-password-confirm" placeholder="Type your password again" autocomplete="new-password">
+
+        <div id="recaptcha-wrapper" class="recaptcha-wrapper">
+          <div class="g-recaptcha" data-sitekey="6Lf1npktAAAAAH9495JcGng_WgsL-_NzfL1RFq1p"></div>
+        </div>
+
+        <p id="auth-error" class="auth-error"></p>
+        <p id="auth-success" class="auth-success"></p>
+
+        <button type="submit" id="auth-submit-btn">Sign Up</button>
+      </form>
+
+      <p class="auth-switch">
+        <button id="forgot-password-btn" type="button">Forgot password?</button>
+      </p>
+
+      <p class="auth-switch">
+        <span id="auth-switch-text">Already have an account?</span>
+        <button id="auth-switch-btn" type="button">Log In</button>
+      </p>
+    </div>
+  </div>
+
+  <!-- Upload a Book Modal -->
+  <div id="upload-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <button id="close-upload-modal" class="modal-close">&times;</button>
+
+      <h2>Upload a Book</h2>
+
+      <form id="upload-form">
+        <label for="upload-title">Title</label>
+        <input type="text" id="upload-title" required placeholder="e.g. Stay Inside">
+
+        <label for="upload-desc">Short Description</label>
+        <input type="text" id="upload-desc" required placeholder="One short sentence about the book">
+
+        <label for="upload-genre">Genre</label>
+        <select id="upload-genre" required>
+          <option value="">Choose a genre...</option>
+          <option value="Drama">Drama</option>
+          <option value="Thriller">Thriller</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Romance">Romance</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Horror">Horror</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="upload-cover">Cover Image</label>
+        <input type="file" id="upload-cover" accept="image/*" required>
+        <div id="upload-cover-preview" class="file-preview-row hidden">
+          <span id="upload-cover-filename" class="file-preview-name"></span>
+          <button type="button" id="upload-cover-clear" class="file-clear-btn" aria-label="Remove cover image">&times;</button>
+        </div>
+
+        <label for="upload-pdf">PDF File</label>
+        <input type="file" id="upload-pdf" accept="application/pdf" required>
+        <div id="upload-pdf-preview" class="file-preview-row hidden">
+          <span id="upload-pdf-filename" class="file-preview-name"></span>
+          <button type="button" id="upload-pdf-clear" class="file-clear-btn" aria-label="Remove PDF file">&times;</button>
+        </div>
+
+        <div id="upload-progress-wrapper" class="upload-progress-wrapper hidden">
+          <div class="upload-progress-track">
+            <div id="upload-progress-bar" class="upload-progress-bar"></div>
+          </div>
+          <p id="upload-progress-text" class="upload-progress-text">0%</p>
+        </div>
+
+        <p id="upload-error" class="auth-error"></p>
+        <p id="upload-success" class="auth-success"></p>
+
+        <button type="submit" id="upload-submit-btn">Upload</button>
+      </form>
+
+      <!-- Shown after a successful upload, replacing the form -->
+      <div id="upload-success-view" class="upload-success-view hidden">
+        <div class="upload-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Upload received!</h3>
+        <p>Your book is now waiting for approval. Once it's approved, it will appear on the site for everyone to see.</p>
+        <button type="button" id="upload-success-done-btn">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pending Approvals Modal (admin only) -->
+  <div id="admin-modal" class="modal-overlay hidden">
+    <div class="modal-box admin-box">
+      <button id="close-admin-modal" class="modal-close">&times;</button>
+      <h2>Pending Approvals</h2>
+      <div id="pending-list" class="pending-list">
+        <p class="empty-state-small">Loading...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Detail Modal (full-screen, feels like its own page) -->
+  <div id="book-detail-modal" class="modal-overlay book-detail-overlay hidden">
+    <button id="close-book-detail-modal" class="detail-page-close">&times;</button>
+    <div class="book-detail-page">
+      <div id="detail-cover" class="detail-cover-large"></div>
+      <div class="detail-info-large">
+        <span id="detail-genre" class="detail-genre-tag hidden"></span>
+        <h2 id="detail-title"></h2>
+        <p id="detail-desc"></p>
+        <p id="detail-author"></p>
+        <div class="detail-meta-row">
+          <span id="detail-date"></span>
+          <span id="detail-filesize"></span>
+        </div>
+
+        <!-- Editable fields (owner only) -->
+        <div id="edit-fields" class="edit-fields hidden">
+          <label for="edit-title-input">Title</label>
+          <input type="text" id="edit-title-input">
+          <label for="edit-desc-input">Description</label>
+          <input type="text" id="edit-desc-input">
+        </div>
+
+        <div class="detail-actions">
+          <a id="detail-download" class="detail-download-btn" href="#" download>Download</a>
+          <button id="detail-login-prompt" class="login-to-download-btn detail-login-btn">Log in to download</button>
+          <button id="detail-edit-btn" class="detail-edit-btn hidden">Edit</button>
+          <button id="detail-save-btn" class="detail-save-btn hidden">Save Changes</button>
+          <button id="detail-delete-btn" class="detail-delete-btn hidden">Delete this book</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
