@@ -652,7 +652,10 @@ document.addEventListener('DOMContentLoaded', () => {
       loadBooksFromDatabase();
 
     } catch (error) {
-      uploadError.textContent = 'Something went wrong. Please try again.';
+      // TEMPORARY: showing the real error message on screen so we can
+      // diagnose a mobile-only issue without needing cable debugging.
+      // We'll revert this to a friendly generic message once it's fixed.
+      uploadError.textContent = 'Something went wrong: ' + (error && error.message ? error.message : error);
       console.error(error);
       uploadProgressWrapper.classList.add('hidden');
     } finally {
