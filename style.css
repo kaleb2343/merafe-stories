@@ -1281,3 +1281,39 @@ body.dark-theme .upload-success-view h3 {
 body.dark-theme .upload-success-view p {
   color: #e3cfc1;
 }
+
+/* ---------- Custom lightweight icons (replaces Font Awesome) ---------- */
+.icon-svg {
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* ---------- Contrast fixes (darkened for accessibility) ---------- */
+.footer-copyright {
+  color: #6b4a35 !important;
+}
+
+.empty-state-small {
+  color: #6b4a35 !important;
+}
+
+.detail-meta-row {
+  color: #6b4a35 !important;
+}
+
+.search-inline-input::placeholder {
+  color: #8a7364 !important;
+}
+
+body.dark-theme .footer-copyright,
+body.dark-theme .empty-state-small,
+body.dark-theme .detail-meta-row {
+  color: #cbb6a3 !important;
+}

@@ -14,8 +14,6 @@
   <meta property="og:description" content="Read short stories from Ethiopia and beyond, or share one of your own.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="assets/book%20cover.webp">
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -24,21 +22,21 @@
   <div class="top-band">
   <nav class="navbar">
     <div class="nav-pill">
-      <button class="nav-icon-btn" id="home-btn" aria-label="Home"><i class="fa-solid fa-house"></i></button>
+      <button class="nav-icon-btn" id="home-btn" aria-label="Home"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></button>
       <div id="search-wrapper" class="search-wrapper">
         <input type="text" id="search-input" class="search-inline-input" placeholder="Search by title..." autocomplete="off">
-        <button class="nav-icon-btn" id="search-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="nav-icon-btn" id="search-btn" aria-label="Search"><svg class="icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
       </div>
-      <button class="nav-icon-btn" id="upload-btn" aria-label="Upload a book"><i class="fa-solid fa-plus"></i></button>
+      <button class="nav-icon-btn" id="upload-btn" aria-label="Upload a book"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></button>
       <div class="account-wrapper">
-        <button class="nav-icon-btn" id="account-btn" aria-label="Account" title=""><i class="fa-solid fa-user-plus"></i></button>
+        <button class="nav-icon-btn" id="account-btn" aria-label="Account" title=""><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></button>
         <div id="account-menu" class="account-menu hidden">
           <p id="account-menu-name" class="account-menu-name"></p>
           <button id="logout-btn" class="account-menu-item">Log Out</button>
         </div>
       </div>
-      <button class="nav-icon-btn hidden" id="admin-btn" aria-label="Pending approvals"><i class="fa-solid fa-shield-halved"></i></button>
-      <button class="nav-icon-btn" id="theme-toggle" aria-label="Toggle dark mode"><i class="fa-solid fa-moon"></i></button>
+      <button class="nav-icon-btn hidden" id="admin-btn" aria-label="Pending approvals"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></button>
+      <button class="nav-icon-btn" id="theme-toggle" aria-label="Toggle dark mode"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
     </div>
   </nav>
 
@@ -113,9 +111,9 @@
         <a href="terms.html">Terms of Service</a>
       </div>
       <div class="footer-socials">
-        <a href="https://t.me/kaleb_dawit" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram"></i></a>
-        <a href="https://x.com/Kaleb2343" target="_blank" rel="noopener" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-        <a href="https://github.com/kaleb2343" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://t.me/kaleb_dawit" target="_blank" rel="noopener" aria-label="Telegram"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></a>
+        <a href="https://x.com/Kaleb2343" target="_blank" rel="noopener" aria-label="X (Twitter)"><svg class="icon-svg" viewBox="0 0 24 24"><line x1="4" y1="4" x2="20" y2="20"></line><line x1="20" y1="4" x2="4" y2="20"></line></svg></a>
+        <a href="https://github.com/kaleb2343" target="_blank" rel="noopener" aria-label="GitHub"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
       </div>
       <p class="footer-copyright">© 2025 ምእራፍ — Developed by Kaleb Dawit</p>
     </div>
@@ -218,7 +216,7 @@
 
       <!-- Shown after a successful upload, replacing the form -->
       <div id="upload-success-view" class="upload-success-view hidden">
-        <div class="upload-success-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <div class="upload-success-icon"><svg class="icon-svg" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></div>
         <h3>Upload received!</h3>
         <p>Your book is now waiting for approval. Once it's approved, it will appear on the site for everyone to see.</p>
         <button type="button" id="upload-success-done-btn">Got it</button>

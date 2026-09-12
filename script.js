@@ -36,6 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
     return url.replace('/upload/', '/upload/f_auto,q_auto,w_600/');
   }
 
+  // Browsers mostly ignore the HTML "download" attribute for files hosted
+  // on a different site (like Cloudinary), so clicking Download just opens
+  // the PDF instead of saving it. Cloudinary's fl_attachment flag tells it
+  // to send the file in a way that forces a real download instead, no
+  // matter how large the file is.
+  function forceDownloadUrl(url) {
+    if (!url || !url.includes('/upload/')) return url;
+    return url.replace('/upload/', '/upload/fl_attachment/');
+  }
+
   // Resizes and compresses an image in the browser before it's ever uploaded,
   // so less data actually has to travel over the network. Caps the longest
   // side at 1200px and re-encodes as JPEG at 82% quality, which looks
@@ -326,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentUser = user;
     if (user) {
       const displayName = user.displayName || user.email;
-      accountBtn.innerHTML = '<i class="fa-solid fa-user-check"></i>';
+      accountBtn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>';
       accountBtn.setAttribute('aria-label', 'Account menu');
       accountBtn.setAttribute('title', displayName);
       accountMenuName.textContent = displayName;
@@ -338,7 +348,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('admin-btn').classList.add('hidden');
       }
     } else {
-      accountBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i>';
+      accountBtn.innerHTML = '<svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>';
       accountBtn.setAttribute('aria-label', 'Account');
       accountBtn.setAttribute('title', '');
       accountMenu.classList.add('hidden');
@@ -752,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.className = 'book-card real-book';
 
       const safeCoverUrl = escapeHTML(optimizeCoverUrl(book.coverUrl));
-      const safePdfUrl = escapeHTML(book.pdfUrl);
+      const safePdfUrl = escapeHTML(forceDownloadUrl(book.pdfUrl));
       const safeTitle = escapeHTML(book.title);
       const safeDesc = escapeHTML(book.description);
       const safeAuthor = escapeHTML(book.author);
@@ -925,7 +935,7 @@ document.addEventListener('DOMContentLoaded', () => {
     detailTitle.textContent = titleEl ? titleEl.textContent : '';
     detailDesc.textContent = descEl ? descEl.textContent : '';
     detailAuthor.textContent = authorEl ? authorEl.textContent : '';
-    detailDownload.href = cover.getAttribute('data-pdf');
+    detailDownload.href = forceDownloadUrl(cover.getAttribute('data-pdf'));
 
     const genre = cover.getAttribute('data-genre');
     if (genre) {
