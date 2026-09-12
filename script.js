@@ -370,32 +370,74 @@ document.addEventListener('DOMContentLoaded', () => {
   const uploadProgressBar = document.getElementById('upload-progress-bar');
   const uploadProgressText = document.getElementById('upload-progress-text');
 
+  // Android Chrome sometimes revokes read access to a picked file if we
+  // wait too long before reading it (shows as "permission problems...
+  // after a reference to a file was acquired"). The fix: read each file
+  // into memory immediately when picked, and use that safe in-memory
+  // copy for everything else (compressing, hashing, uploading) instead
+  // of touching the original file reference again later.
+  let pendingCoverBlob = null;
+  let pendingCoverType = '';
+  let pendingCoverSize = 0;
+  let pendingCoverReadPromise = null;
+
+  let pendingPdfBlob = null;
+  let pendingPdfType = '';
+  let pendingPdfSize = 0;
+  let pendingPdfReadPromise = null;
+
   uploadCover.addEventListener('change', () => {
-    if (uploadCover.files[0]) {
-      uploadCoverFilename.textContent = uploadCover.files[0].name;
-      uploadCoverPreview.classList.remove('hidden');
-    } else {
+    const file = uploadCover.files[0];
+    if (!file) {
       uploadCoverPreview.classList.add('hidden');
+      pendingCoverBlob = null;
+      return;
     }
+    uploadCoverFilename.textContent = file.name;
+    uploadCoverPreview.classList.remove('hidden');
+    pendingCoverType = file.type;
+    pendingCoverSize = file.size;
+    pendingCoverReadPromise = file.arrayBuffer()
+      .then((buf) => {
+        pendingCoverBlob = new Blob([buf], { type: file.type });
+      })
+      .catch((err) => {
+        console.error('Could not read cover image right away:', err);
+        pendingCoverBlob = null;
+      });
   });
 
   uploadCoverClear.addEventListener('click', () => {
     uploadCover.value = '';
     uploadCoverPreview.classList.add('hidden');
+    pendingCoverBlob = null;
   });
 
   uploadPdf.addEventListener('change', () => {
-    if (uploadPdf.files[0]) {
-      uploadPdfFilename.textContent = uploadPdf.files[0].name;
-      uploadPdfPreview.classList.remove('hidden');
-    } else {
+    const file = uploadPdf.files[0];
+    if (!file) {
       uploadPdfPreview.classList.add('hidden');
+      pendingPdfBlob = null;
+      return;
     }
+    uploadPdfFilename.textContent = file.name;
+    uploadPdfPreview.classList.remove('hidden');
+    pendingPdfType = file.type;
+    pendingPdfSize = file.size;
+    pendingPdfReadPromise = file.arrayBuffer()
+      .then((buf) => {
+        pendingPdfBlob = new Blob([buf], { type: file.type });
+      })
+      .catch((err) => {
+        console.error('Could not read PDF right away:', err);
+        pendingPdfBlob = null;
+      });
   });
 
   uploadPdfClear.addEventListener('click', () => {
     uploadPdf.value = '';
     uploadPdfPreview.classList.add('hidden');
+    pendingPdfBlob = null;
   });
 
   const uploadError = document.getElementById('upload-error');
@@ -536,36 +578,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const title = uploadTitle.value.trim();
     const description = uploadDesc.value.trim();
     const genre = uploadGenre.value;
-    const coverFile = uploadCover.files[0];
-    const pdfFile = uploadPdf.files[0];
 
-    if (!title || !description || !genre || !coverFile || !pdfFile) {
+    if (!title || !description || !genre || !uploadCover.files[0] || !uploadPdf.files[0]) {
       uploadError.textContent = 'Please fill in every field and choose both files.';
       return;
     }
 
-    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-    if (!allowedImageTypes.includes(coverFile.type)) {
-      uploadError.textContent = 'Cover image must be a JPG, PNG, WEBP, or GIF file.';
+    // Make sure the immediate background read of each file (started the
+    // moment it was picked) has actually finished before we go further.
+    uploadSubmitBtn.disabled = true;
+    uploadSubmitBtn.textContent = 'Preparing files...';
+    if (pendingCoverReadPromise) await pendingCoverReadPromise;
+    if (pendingPdfReadPromise) await pendingPdfReadPromise;
+
+    if (!pendingCoverBlob || !pendingPdfBlob) {
+      uploadError.textContent = 'One of your files could not be read. Please choose it again and retry.';
+      uploadSubmitBtn.disabled = false;
+      uploadSubmitBtn.textContent = 'Upload';
       return;
     }
-    if (pdfFile.type !== 'application/pdf') {
+
+    const coverFile = pendingCoverBlob;
+    const pdfFile = pendingPdfBlob;
+
+    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedImageTypes.includes(pendingCoverType)) {
+      uploadError.textContent = 'Cover image must be a JPG, PNG, WEBP, or GIF file.';
+      uploadSubmitBtn.disabled = false;
+      uploadSubmitBtn.textContent = 'Upload';
+      return;
+    }
+    if (pendingPdfType !== 'application/pdf') {
       uploadError.textContent = 'The book file must be a PDF.';
+      uploadSubmitBtn.disabled = false;
+      uploadSubmitBtn.textContent = 'Upload';
       return;
     }
 
     const MAX_COVER_SIZE = 5 * 1024 * 1024;
     const MAX_PDF_SIZE = 25 * 1024 * 1024;
-    if (coverFile.size > MAX_COVER_SIZE) {
+    if (pendingCoverSize > MAX_COVER_SIZE) {
       uploadError.textContent = 'Cover image is too large. Please use an image under 5 MB.';
+      uploadSubmitBtn.disabled = false;
+      uploadSubmitBtn.textContent = 'Upload';
       return;
     }
-    if (pdfFile.size > MAX_PDF_SIZE) {
+    if (pendingPdfSize > MAX_PDF_SIZE) {
       uploadError.textContent = 'PDF file is too large. Please use a file under 25 MB.';
+      uploadSubmitBtn.disabled = false;
+      uploadSubmitBtn.textContent = 'Upload';
       return;
     }
 
-    uploadSubmitBtn.disabled = true;
     uploadSubmitBtn.textContent = 'Optimizing image...';
 
     try {
@@ -648,14 +712,13 @@ document.addEventListener('DOMContentLoaded', () => {
       uploadProgressWrapper.classList.add('hidden');
       uploadForm.classList.add('hidden');
       document.getElementById('upload-success-view').classList.remove('hidden');
+      pendingCoverBlob = null;
+      pendingPdfBlob = null;
 
       loadBooksFromDatabase();
 
     } catch (error) {
-      // TEMPORARY: showing the real error message on screen so we can
-      // diagnose a mobile-only issue without needing cable debugging.
-      // We'll revert this to a friendly generic message once it's fixed.
-      uploadError.textContent = 'Something went wrong: ' + (error && error.message ? error.message : error);
+      uploadError.textContent = 'Something went wrong. Please try again.';
       console.error(error);
       uploadProgressWrapper.classList.add('hidden');
     } finally {
