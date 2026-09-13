@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const item = document.createElement('div');
       item.className = 'pending-item';
       item.innerHTML = `
-        <img src="${safeCoverUrl}" alt="${safeTitle}">
+        <img src="${safeCoverUrl}" alt="${safeTitle}" width="60" height="80">
         <div class="pending-item-info">
           <p class="pending-item-title">${safeTitle}</p>
           <p class="pending-item-desc">${safeDesc}</p>
