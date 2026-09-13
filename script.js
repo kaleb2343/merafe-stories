@@ -18,7 +18,7 @@ import {
   updateDoc,
   deleteDoc,
   serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-lite.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   function escapeHTML(str) {
@@ -172,12 +172,38 @@ document.addEventListener('DOMContentLoaded', () => {
     recaptchaWrapper.classList.remove('hidden');
   }
 
+  // --- Load reCAPTCHA only when someone actually opens the Sign Up
+  // form, instead of on every single page visit. This is one of the
+  // heavier third-party scripts on the site, so most visitors (who
+  // never sign up) never need to download it at all. ---
+  const RECAPTCHA_SITE_KEY = '6Lf1npktAAAAAH9495JcGng_WgsL-_NzfL1RFq1p';
+  let recaptchaWidgetId = null;
+  let recaptchaLoadStarted = false;
+
+  function ensureRecaptchaLoaded() {
+    if (recaptchaLoadStarted) return;
+    recaptchaLoadStarted = true;
+
+    window.onRecaptchaReady = function () {
+      recaptchaWidgetId = grecaptcha.render('recaptcha-widget', {
+        sitekey: RECAPTCHA_SITE_KEY
+      });
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaReady&render=explicit';
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+
   accountBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (currentUser) {
       accountMenu.classList.toggle('hidden');
     } else {
       authModal.classList.remove('hidden');
+      ensureRecaptchaLoaded();
     }
   });
 
@@ -268,7 +294,9 @@ document.addEventListener('DOMContentLoaded', () => {
         authError.textContent = 'Please enter your name.';
         return;
       }
-      const captchaResponse = typeof grecaptcha !== 'undefined' ? grecaptcha.getResponse() : '';
+      const captchaResponse = (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null)
+        ? grecaptcha.getResponse(recaptchaWidgetId)
+        : '';
       if (!captchaResponse) {
         authError.textContent = "Please check the \"I'm not a robot\" box before signing up.";
         return;
@@ -303,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .finally(() => {
           authSubmitBtn.disabled = false;
           authSubmitBtn.textContent = 'Sign Up';
-          if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
+          if (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null) grecaptcha.reset(recaptchaWidgetId);
         });
     } else {
       signInWithEmailAndPassword(auth, email, password)
@@ -458,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
   uploadBtn.addEventListener('click', async () => {
     if (!currentUser) {
       authModal.classList.remove('hidden');
+      ensureRecaptchaLoaded();
       return;
     }
 
@@ -1041,6 +1070,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', (e) => {
     if (e.target.classList.contains('overlay-login-btn')) {
       authModal.classList.remove('hidden');
+      ensureRecaptchaLoaded();
     }
   });
 
@@ -1048,5 +1078,6 @@ document.addEventListener('DOMContentLoaded', () => {
   detailLoginPrompt.addEventListener('click', () => {
     bookDetailModal.classList.add('hidden');
     authModal.classList.remove('hidden');
+    ensureRecaptchaLoaded();
   });
 });

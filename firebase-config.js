@@ -3,7 +3,7 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { initializeFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-lite.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDilukVWwJTWywaqQN6by4624V5moWs6vE",
@@ -22,11 +22,11 @@ const app = initializeApp(firebaseConfig);
 // db = handles storing and reading book data
 export const auth = getAuth(app);
 
-// On some networks, Firestore's normal connection method (WebSockets)
-// struggles or times out, causing everything to feel slow (this is what
-// caused the ~32 second delay we saw). Telling it to auto-detect and use
-// long-polling instead skips that slow negotiation and connects reliably
-// and faster on networks like this.
-export const db = initializeFirestore(app, {
-  experimentalAutoDetectLongPolling: true
-});
+// We use the "Lite" version of Firestore instead of the full SDK.
+// Lite supports everything we actually use (one-time reads/writes via
+// getDocs, addDoc, updateDoc, deleteDoc) but leaves out the real-time
+// "live updates" engine we never use — a large chunk of the full SDK's
+// size. It also uses simple one-time requests instead of a persistent
+// connection, which sidesteps the slow-connection issue we ran into
+// earlier with the full SDK on certain networks.
+export const db = getFirestore(app);
