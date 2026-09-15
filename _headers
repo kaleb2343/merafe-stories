@@ -1,3 +1,10 @@
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://www.google.com https://apis.google.com; style-src 'self' 'unsafe-inline' https://www.gstatic.com; img-src 'self' data: https://res.cloudinary.com https://www.gstatic.com; font-src 'self'; connect-src 'self' https://*.googleapis.com https://api.cloudinary.com https://www.google.com; frame-src https://www.google.com https://www.gstatic.com https://recaptcha.net; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+
 /assets/*
   Cache-Control: public, max-age=604800
 
