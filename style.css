@@ -1317,3 +1317,74 @@ body.dark-theme .empty-state-small,
 body.dark-theme .detail-meta-row {
   color: #cbb6a3 !important;
 }
+/* ---------- Profile Page ---------- */
+.profile-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 100px 40px 80px;
+  box-sizing: border-box;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.profile-header h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: #411d13;
+  margin: 0 0 6px;
+}
+
+.profile-header p {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: #8a7364;
+}
+
+.profile-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #411d13;
+  margin: 0 0 20px;
+}
+
+.pending-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: #b3261e;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+body.dark-theme .profile-header h2 {
+  color: #f3e6dd;
+}
+
+body.dark-theme .profile-header p {
+  color: #b89a86;
+}
+
+body.dark-theme .profile-section-title {
+  color: #f3e6dd;
+}
+
+@media (max-width: 600px) {
+  .profile-page {
+    padding: 90px 20px 60px;
+  }
+}
+
+#book-detail-modal {
+  z-index: 250;
+}
+
+#profile-modal {
+  z-index: 200;
+}
