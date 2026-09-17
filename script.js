@@ -218,6 +218,91 @@ document.addEventListener('DOMContentLoaded', () => {
     accountMenu.classList.add('hidden');
   });
 
+  // --- Profile Page ---
+  const viewProfileBtn = document.getElementById('view-profile-btn');
+  const profileModal = document.getElementById('profile-modal');
+  const closeProfileModal = document.getElementById('close-profile-modal');
+  const profileName = document.getElementById('profile-name');
+  const profileEmail = document.getElementById('profile-email');
+  const profileJoined = document.getElementById('profile-joined');
+  const profileBooksGrid = document.getElementById('profile-books-grid');
+  const profileEmptyState = document.getElementById('profile-empty-state');
+
+  viewProfileBtn.addEventListener('click', () => {
+    accountMenu.classList.add('hidden');
+    if (!currentUser) return;
+
+    profileName.textContent = currentUser.displayName || currentUser.email;
+    profileEmail.textContent = currentUser.email;
+
+    if (currentUser.metadata && currentUser.metadata.creationTime) {
+      const joinedDate = new Date(currentUser.metadata.creationTime);
+      profileJoined.textContent = 'Member since ' + joinedDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    } else {
+      profileJoined.textContent = '';
+    }
+
+    loadMyBooks();
+    profileModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+
+  closeProfileModal.addEventListener('click', () => {
+    profileModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+
+  async function loadMyBooks() {
+    document.querySelectorAll('#profile-books-grid .book-card').forEach((el) => el.remove());
+    profileEmptyState.classList.add('hidden');
+
+    const myBooksQuery = query(collection(db, 'books'), where('uploadedBy', '==', currentUser.uid));
+    const snapshot = await getDocs(myBooksQuery);
+
+    const books = [];
+    snapshot.forEach((docSnap) => {
+      books.push({ id: docSnap.id, ...docSnap.data() });
+    });
+
+    if (books.length === 0) {
+      profileEmptyState.classList.remove('hidden');
+      return;
+    }
+
+    books.sort((a, b) => {
+      const timeA = a.createdAt ? a.createdAt.toMillis() : 0;
+      const timeB = b.createdAt ? b.createdAt.toMillis() : 0;
+      return timeB - timeA;
+    });
+
+    books.forEach((book) => {
+      const safeCoverUrl = escapeHTML(optimizeCoverUrl(book.coverUrl));
+      const safePdfUrl = escapeHTML(forceDownloadUrl(book.pdfUrl));
+      const safeTitle = escapeHTML(book.title);
+      const safeDesc = escapeHTML(book.description);
+      const safeAuthor = escapeHTML(book.author);
+      const safeGenre = escapeHTML(book.genre || '');
+      const isPending = book.status === 'pending';
+
+      const card = document.createElement('div');
+      card.className = 'book-card';
+      card.innerHTML = `
+        <div class="book-cover" data-cover="${safeCoverUrl}" data-pdf="${safePdfUrl}" data-book-id="${book.id}" data-uploaded-by="${book.uploadedBy}" data-genre="${safeGenre}" data-created="${book.createdAt ? book.createdAt.toMillis() : ''}" data-filesize="${book.pdfSizeBytes || ''}" style="background-image: url('${safeCoverUrl}'); position: relative;">
+          ${isPending ? '<span class="pending-badge">Pending</span>' : ''}
+          <div class="book-overlay">
+            <p class="overlay-title">${safeTitle}</p>
+            <p class="overlay-desc">${safeDesc}</p>
+            <p class="overlay-author">by ${safeAuthor}</p>
+            <a class="overlay-download" href="${safePdfUrl}" download target="_blank">Download</a>
+            <button class="login-to-download-btn overlay-login-btn">Log in to download</button>
+          </div>
+        </div>
+      `;
+
+      profileBooksGrid.appendChild(card);
+    });
+  }
+
   closeAuthModal.addEventListener('click', () => {
     authModal.classList.add('hidden');
     clearMessages();

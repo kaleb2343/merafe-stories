@@ -31,6 +31,7 @@
         <button class="nav-icon-btn" id="account-btn" aria-label="Account" title=""><svg class="icon-svg" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></button>
         <div id="account-menu" class="account-menu hidden">
           <p id="account-menu-name" class="account-menu-name"></p>
+          <button id="view-profile-btn" class="account-menu-item">View Profile</button>
           <button id="logout-btn" class="account-menu-item">Log Out</button>
         </div>
       </div>
@@ -264,6 +265,22 @@
           <button id="detail-save-btn" class="detail-save-btn hidden">Save Changes</button>
           <button id="detail-delete-btn" class="detail-delete-btn hidden">Delete this book</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Page (full-screen, same style as Book Detail) -->
+  <div id="profile-modal" class="modal-overlay book-detail-overlay hidden">
+    <button id="close-profile-modal" class="detail-page-close">&times;</button>
+    <div class="profile-page">
+      <div class="profile-header">
+        <h2 id="profile-name"></h2>
+        <p id="profile-email"></p>
+        <p id="profile-joined"></p>
+      </div>
+      <h3 class="profile-section-title">My Books</h3>
+      <div id="profile-books-grid" class="book-grid">
+        <p id="profile-empty-state" class="empty-state-small hidden">You haven't uploaded any books yet.</p>
       </div>
     </div>
   </div>
