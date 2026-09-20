@@ -275,8 +275,16 @@
     <div class="profile-page">
       <div class="profile-header">
         <h2 id="profile-name"></h2>
-        <p id="profile-email"></p>
-        <p id="profile-joined"></p>
+        <div class="profile-info-table">
+          <div class="profile-info-row">
+            <span class="info-label">Email</span>
+            <span id="profile-email" class="info-value"></span>
+          </div>
+          <div class="profile-info-row">
+            <span class="info-label">Member since</span>
+            <span id="profile-joined" class="info-value"></span>
+          </div>
+        </div>
       </div>
       <h3 class="profile-section-title">My Books</h3>
       <div id="profile-books-grid" class="book-grid">

@@ -1317,7 +1317,7 @@ body.dark-theme .empty-state-small,
 body.dark-theme .detail-meta-row {
   color: #cbb6a3 !important;
 }
-/* ---------- Profile Page ---------- */
+/* ---------- Profile Page (replaces old .profile-header p rules) ---------- */
 .profile-page {
   max-width: 800px;
   margin: 0 auto;
@@ -1334,13 +1334,41 @@ body.dark-theme .detail-meta-row {
   font-size: 28px;
   font-weight: 800;
   color: #411d13;
-  margin: 0 0 6px;
+  margin: 0 0 16px;
 }
 
-.profile-header p {
-  margin: 0 0 4px;
-  font-size: 14px;
+.profile-info-table {
+  display: inline-block;
+  min-width: 260px;
+  text-align: left;
+  border: 1px solid rgba(65, 29, 19, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.profile-info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 10px 18px;
+  border-bottom: 1px solid rgba(65, 29, 19, 0.1);
+  background: rgba(65, 29, 19, 0.03);
+}
+
+.profile-info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 13px;
+  font-weight: 600;
   color: #8a7364;
+}
+
+.info-value {
+  font-size: 13px;
+  color: #411d13;
+  font-weight: 500;
 }
 
 .profile-section-title {
@@ -1367,8 +1395,21 @@ body.dark-theme .profile-header h2 {
   color: #f3e6dd;
 }
 
-body.dark-theme .profile-header p {
+body.dark-theme .profile-info-table {
+  border-color: rgba(243, 230, 221, 0.15);
+}
+
+body.dark-theme .profile-info-row {
+  background: rgba(243, 230, 221, 0.05);
+  border-bottom-color: rgba(243, 230, 221, 0.1);
+}
+
+body.dark-theme .info-label {
   color: #b89a86;
+}
+
+body.dark-theme .info-value {
+  color: #f3e6dd;
 }
 
 body.dark-theme .profile-section-title {
@@ -1378,6 +1419,9 @@ body.dark-theme .profile-section-title {
 @media (max-width: 600px) {
   .profile-page {
     padding: 90px 20px 60px;
+  }
+  .profile-info-table {
+    width: 100%;
   }
 }
 
