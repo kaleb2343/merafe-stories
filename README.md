@@ -50,11 +50,11 @@ Open `index.html` in a live server (e.g. VS Code's Live Server extension) — th
 
 ## 📸 Screenshots
 
-## 📸 Screenshots
-
 | Home | Book Detail | Upload |
 |------|-------------|--------|
-| ![Home](screenshots/home.jpg) | ![Book Detail](screenshots/detail.png) | ![Upload](screenshots/upload.jpg) |
+| ![Home](screenshots/home.png) | ![Book Detail](screenshots/detail.png) | ![Upload](screenshots/upload.png) |
+
+
 ## 🗺️ Roadmap
 
 - [ ] User profile pages with public author bios
