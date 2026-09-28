@@ -53,7 +53,7 @@ Open `index.html` in a live server (e.g. VS Code's Live Server extension) — th
 | Home | Book Detail | Upload |
 |------|-------------|--------|
 | ![Home](screenshots/home.png) | ![Book Detail](screenshots/detail.png) | ![Upload](screenshots/upload.png) |
- 
+  
 
 ## 🗺️ Roadmap
 
