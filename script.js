@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        authSuccess.textContent = 'Password reset email sent. Check your inbox.';
+        authSuccess.textContent = "Password reset email sent. Check your inbox — and your spam/junk folder, just in case.";
       })
       .catch((error) => {
         authError.textContent = friendlyError(error.code);
@@ -499,12 +499,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(() => {
           authForm.reset();
           resetToSignUpView();
-          authSuccess.textContent = 'Account created! Check your email to verify your account before uploading.';
+          authSuccess.textContent = "Account created! Check your email to verify your account before uploading. Don't see it? Peek in your spam/junk folder — it sometimes ends up there.";
           setTimeout(() => {
             authModal.classList.add('hidden');
             authSuccess.textContent = '';
             stopAuthModalWatcher();
-          }, 3500);
+          }, 6000);
         })
         .catch((error) => {
           authError.textContent = friendlyError(error.code);
