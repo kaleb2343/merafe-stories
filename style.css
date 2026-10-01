@@ -225,7 +225,7 @@ a.overlay-download {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 500;
 }
 
 .modal-overlay.hidden {
@@ -582,7 +582,7 @@ body.dark-theme .search-inline-input {
 }
 
 body.dark-theme .search-inline-input::placeholder {
-  color: #9c8879;
+  color: #c9a690;
 }
 
 
@@ -1312,8 +1312,12 @@ body.dark-theme .upload-success-view p {
   color: #6b4a35 !important;
 }
 
-.search-inline-input::placeholder {
+body:not(.dark-theme) .search-inline-input::placeholder {
   color: #8a7364 !important;
+}
+
+body.dark-theme .search-inline-input::placeholder {
+  color: #c9a690 !important;
 }
 
 body.dark-theme .footer-copyright,

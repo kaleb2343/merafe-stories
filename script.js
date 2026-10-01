@@ -157,6 +157,56 @@ document.addEventListener('DOMContentLoaded', () => {
     authSuccess.textContent = '';
   }
 
+  // --- Keep the submit button disabled until the form is actually
+  // ready to send, so people can't click "Sign Up"/"Log In" before
+  // filling everything in correctly. ---
+  function isEmailValid(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+  }
+
+  function updateSubmitButtonState() {
+    const email = authEmail.value;
+    const password = authPassword.value;
+
+    if (isSignUpMode) {
+      const name = authName.value;
+      const confirmPassword = authPasswordConfirm.value;
+      const captchaResponse = (typeof grecaptcha !== 'undefined' && recaptchaWidgetId !== null)
+        ? grecaptcha.getResponse(recaptchaWidgetId)
+        : '';
+
+      const ready = name.trim().length > 0
+        && isEmailValid(email)
+        && password.length >= 6
+        && password === confirmPassword
+        && confirmPassword.length > 0
+        && !!captchaResponse;
+
+      authSubmitBtn.disabled = !ready;
+    } else {
+      const ready = isEmailValid(email) && password.length >= 6;
+      authSubmitBtn.disabled = !ready;
+    }
+  }
+
+  [authName, authEmail, authPassword, authPasswordConfirm].forEach((field) => {
+    field.addEventListener('input', updateSubmitButtonState);
+    field.addEventListener('change', updateSubmitButtonState);
+  });
+
+  // Browser/password-manager autofill sometimes fills fields silently,
+  // without firing 'input' or 'change' at all. As a safety net, keep
+  // re-checking for as long as the Sign Up/Log In modal is open.
+  let authModalWatcher = null;
+  function startAuthModalWatcher() {
+    if (authModalWatcher) return;
+    authModalWatcher = setInterval(updateSubmitButtonState, 400);
+  }
+  function stopAuthModalWatcher() {
+    clearInterval(authModalWatcher);
+    authModalWatcher = null;
+  }
+
   function resetToSignUpView() {
     isSignUpMode = true;
     authTitle.textContent = 'Sign Up';
@@ -170,6 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nameLabel.style.display = '';
     authName.required = true;
     recaptchaWrapper.classList.remove('hidden');
+    updateSubmitButtonState();
   }
 
   // --- Load reCAPTCHA only when someone actually opens the Sign Up
@@ -186,7 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.onRecaptchaReady = function () {
       recaptchaWidgetId = grecaptcha.render('recaptcha-widget', {
-        sitekey: RECAPTCHA_SITE_KEY
+        sitekey: RECAPTCHA_SITE_KEY,
+        callback: updateSubmitButtonState,
+        'expired-callback': updateSubmitButtonState
       });
     };
 
@@ -204,6 +257,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       authModal.classList.remove('hidden');
       ensureRecaptchaLoaded();
+      updateSubmitButtonState();
+      startAuthModalWatcher();
     }
   });
 
@@ -306,12 +361,14 @@ document.addEventListener('DOMContentLoaded', () => {
   closeAuthModal.addEventListener('click', () => {
     authModal.classList.add('hidden');
     clearMessages();
+    stopAuthModalWatcher();
   });
 
   authModal.addEventListener('click', (e) => {
     if (e.target === authModal) {
       authModal.classList.add('hidden');
       clearMessages();
+      stopAuthModalWatcher();
     }
   });
 
@@ -343,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
       authName.required = false;
       recaptchaWrapper.classList.add('hidden');
     }
+    updateSubmitButtonState();
   });
 
   forgotPasswordBtn.addEventListener('click', () => {
@@ -408,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             authModal.classList.add('hidden');
             authSuccess.textContent = '';
+            stopAuthModalWatcher();
           }, 3500);
         })
         .catch((error) => {
@@ -424,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
           authModal.classList.add('hidden');
           authForm.reset();
           resetToSignUpView();
+          stopAuthModalWatcher();
         })
         .catch((error) => {
           authError.textContent = friendlyError(error.code);
