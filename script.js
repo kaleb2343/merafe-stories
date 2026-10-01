@@ -153,6 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailFieldError = document.getElementById('email-field-error');
   const passwordFieldError = document.getElementById('password-field-error');
 
+  const footerYear = document.getElementById('footer-year');
+  if (footerYear) {
+    footerYear.textContent = new Date().getFullYear();
+  }
+
   let isSignUpMode = true;
   let currentUser = null;
 
