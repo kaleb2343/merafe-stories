@@ -244,13 +244,19 @@ a.overlay-download {
 
 .modal-close {
   position: absolute;
-  top: 12px;
-  right: 14px;
+  top: 10px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
   background: none;
   border: none;
-  font-size: 22px;
+  font-size: 30px;
+  line-height: 1;
   color: #8a7364;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal-box h2 {
@@ -283,6 +289,13 @@ a.overlay-download {
   font-size: 12.5px;
   margin: 10px 0 0;
   min-height: 14px;
+}
+
+.field-error {
+  color: #b3261e;
+  font-size: 11.5px;
+  margin: 4px 0 0;
+  min-height: 13px;
 }
 
 #auth-submit-btn {
@@ -1151,10 +1164,49 @@ body.dark-theme .file-preview-name {
   justify-content: center;
   transform: scale(0.92);
   transform-origin: center;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .recaptcha-wrapper.hidden {
   display: none;
+}
+
+.terms-agree-wrapper {
+  margin-top: 14px;
+}
+
+.terms-agree-wrapper.hidden {
+  display: none;
+}
+
+.terms-agree-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+  color: #6b3a24;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.terms-agree-label input[type="checkbox"] {
+  margin-top: 2px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.terms-agree-label a {
+  color: #411d13;
+  font-weight: 600;
+}
+
+body.dark-theme .terms-agree-label {
+  color: #e3cfc1;
+}
+
+body.dark-theme .terms-agree-label a {
+  color: #f3e6dd;
 }
 
 /* ---------- Mobile responsiveness ---------- */

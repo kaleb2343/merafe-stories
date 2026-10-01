@@ -148,6 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const authSwitchBtn = document.getElementById('auth-switch-btn');
   const forgotPasswordBtn = document.getElementById('forgot-password-btn');
   const recaptchaWrapper = document.getElementById('recaptcha-wrapper');
+  const termsAgreeWrapper = document.getElementById('terms-agree-wrapper');
+  const termsAgreeCheckbox = document.getElementById('terms-agree-checkbox');
+  const emailFieldError = document.getElementById('email-field-error');
+  const passwordFieldError = document.getElementById('password-field-error');
 
   let isSignUpMode = true;
   let currentUser = null;
@@ -164,9 +168,26 @@ document.addEventListener('DOMContentLoaded', () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   }
 
+  // Live, inline red messages shown right under the field as the
+  // person types, separate from the submit-time authError banner.
+  function updateFieldErrors() {
+    const email = authEmail.value;
+    const password = authPassword.value;
+
+    emailFieldError.textContent = (email.length > 0 && !isEmailValid(email))
+      ? 'Please enter a valid email address.'
+      : '';
+
+    passwordFieldError.textContent = (password.length > 0 && password.length < 6)
+      ? 'Password must be at least 6 characters.'
+      : '';
+  }
+
   function updateSubmitButtonState() {
     const email = authEmail.value;
     const password = authPassword.value;
+
+    updateFieldErrors();
 
     if (isSignUpMode) {
       const name = authName.value;
@@ -180,7 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
         && password.length >= 6
         && password === confirmPassword
         && confirmPassword.length > 0
-        && !!captchaResponse;
+        && !!captchaResponse
+        && termsAgreeCheckbox.checked;
 
       authSubmitBtn.disabled = !ready;
     } else {
@@ -193,6 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
     field.addEventListener('input', updateSubmitButtonState);
     field.addEventListener('change', updateSubmitButtonState);
   });
+
+  termsAgreeCheckbox.addEventListener('change', updateSubmitButtonState);
 
   // Browser/password-manager autofill sometimes fills fields silently,
   // without firing 'input' or 'change' at all. As a safety net, keep
@@ -220,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
     nameLabel.style.display = '';
     authName.required = true;
     recaptchaWrapper.classList.remove('hidden');
+    termsAgreeWrapper.classList.remove('hidden');
     updateSubmitButtonState();
   }
 
@@ -238,6 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.onRecaptchaReady = function () {
       recaptchaWidgetId = grecaptcha.render('recaptcha-widget', {
         sitekey: RECAPTCHA_SITE_KEY,
+        theme: document.body.classList.contains('dark-theme') ? 'dark' : 'light',
         callback: updateSubmitButtonState,
         'expired-callback': updateSubmitButtonState
       });
@@ -387,6 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameLabel.style.display = '';
       authName.required = true;
       recaptchaWrapper.classList.remove('hidden');
+      termsAgreeWrapper.classList.remove('hidden');
     } else {
       authTitle.textContent = 'Log In';
       authSubmitBtn.textContent = 'Log In';
@@ -399,6 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nameLabel.style.display = 'none';
       authName.required = false;
       recaptchaWrapper.classList.add('hidden');
+      termsAgreeWrapper.classList.add('hidden');
     }
     updateSubmitButtonState();
   });
@@ -442,6 +470,10 @@ document.addEventListener('DOMContentLoaded', () => {
         : '';
       if (!captchaResponse) {
         authError.textContent = "Please check the \"I'm not a robot\" box before signing up.";
+        return;
+      }
+      if (!termsAgreeCheckbox.checked) {
+        authError.textContent = 'Please agree to the Terms of Service to continue.';
         return;
       }
     }

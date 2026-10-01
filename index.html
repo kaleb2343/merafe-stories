@@ -134,15 +134,24 @@
 
         <label for="auth-email">Email</label>
         <input type="email" id="auth-email" required placeholder="you@example.com">
+        <p id="email-field-error" class="field-error"></p>
 
         <label for="auth-password">Password</label>
         <input type="password" id="auth-password" required placeholder="At least 6 characters" autocomplete="new-password">
+        <p id="password-field-error" class="field-error"></p>
 
         <label for="auth-password-confirm" id="confirm-label">Confirm Password</label>
         <input type="password" id="auth-password-confirm" placeholder="Type your password again" autocomplete="new-password">
 
         <div id="recaptcha-wrapper" class="recaptcha-wrapper">
           <div id="recaptcha-widget"></div>
+        </div>
+
+        <div id="terms-agree-wrapper" class="terms-agree-wrapper">
+          <label class="terms-agree-label">
+            <input type="checkbox" id="terms-agree-checkbox">
+            I agree to the <a href="terms.html" target="_blank">Terms of Service</a>
+          </label>
         </div>
 
         <p id="auth-error" class="auth-error"></p>
