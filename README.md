@@ -47,7 +47,7 @@ cd merafe-stories
 Since this project uses Firebase, you'll need to create your own `firebase-config.js` with your own Firebase project credentials to run it locally with full functionality (auth, uploads, database).
 
 Open `index.html` in a live server (e.g. VS Code's Live Server extension) — that's it, no build step required.
-
+  
 ## 📸 Screenshots
 
 | Home | Book Detail | Upload |
