@@ -1254,7 +1254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       authModal.classList.remove('hidden');
       ensureRecaptchaLoaded();
     }
-  });
+  }); 
  
   const detailLoginPrompt = document.getElementById('detail-login-prompt');
   detailLoginPrompt.addEventListener('click', () => {
