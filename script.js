@@ -1255,7 +1255,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ensureRecaptchaLoaded();
     }
   });
-
+ 
   const detailLoginPrompt = document.getElementById('detail-login-prompt');
   detailLoginPrompt.addEventListener('click', () => {
     bookDetailModal.classList.add('hidden');
