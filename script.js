@@ -1262,4 +1262,4 @@ document.addEventListener('DOMContentLoaded', () => {
     authModal.classList.remove('hidden');
     ensureRecaptchaLoaded();
   });
-});       
+});        
