@@ -48,7 +48,7 @@ Since this project uses Firebase, you'll need to create your own `firebase-confi
 
 Open `index.html` in a live server (e.g. VS Code's Live Server extension) — that's it, no build step required.
   
-## 📸 Screenshots                                   
+## 📸 Screenshots                                    
                                                                    
 | Home | Book Detail | Upload |
 |------|-------------|--------|
