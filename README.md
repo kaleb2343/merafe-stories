@@ -10,7 +10,7 @@ Merafe is a simple, community-driven platform where writers can upload short sto
 
 ---
                                                 
-## ✨ Features  
+## ✨ Features   
 
 - 📚 Browse and search short stories by title
 - ⬆️ Upload your own stories (PDF + cover image) with genre tagging
