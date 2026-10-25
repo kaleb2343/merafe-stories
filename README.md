@@ -8,7 +8,7 @@ Merafe is a simple, community-driven platform where writers can upload short sto
 
 ![Merafe preview](assets/og-image.png)
 
----
+--- 
                                                   
 ## ✨ Features                                                                                                 
 
